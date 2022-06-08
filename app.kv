@@ -1,0 +1,48 @@
+#:import utils kivy.utils
+<Home>:
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#1C2942')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols: 1
+        row_force_default: True
+        row_default_height: 200
+        GridLayout:
+            cols: 2
+            
+            Image:
+                source:"logo.jpeg"
+                allow_stretch: True
+            
+            Label:
+                text: "Oizam"
+                font_size: self.width*30/100
+                color: utils.get_color_from_hex('#FFFFFF')
+        
+        Label:
+            text: """Bonjour, afin d'utiliser Oizam veuillez :"""
+            font_size: self.width*5/100
+            color: utils.get_color_from_hex('#FFFFFF')
+            height: 100
+        GridLayout:
+            cols: 2
+            Button:
+                text: "Prendre une photo"
+                size_hint_y: None
+                width: self.width
+                height: 100
+                font_size: self.width*10/100
+                background_color: utils.get_color_from_hex('#1C2942')
+                color: utils.get_color_from_hex('#FFFFFF')
+                on_press: root.take_picture()
+            Button:
+                text: "Importer une photo"
+                size_hint_y: None
+                width: self.width
+                height: 100
+                font_size: self.width*10/100
+                background_color: utils.get_color_from_hex('#1C2942')
+                on_press: root.import_picture()
