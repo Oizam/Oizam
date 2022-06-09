@@ -1,4 +1,21 @@
 #:import utils kivy.utils
+<CameraView>:
+    orientation: 'vertical'
+    Camera:
+        id: camera
+        resolution: (640, 480)
+        play: False
+    ToggleButton:
+        text: 'Play'
+        on_press: camera.play = not camera.play
+        size_hint_y: None
+        height: '48dp'
+    Button:
+        text: 'Capture'
+        size_hint_y: None
+        height: '48dp'
+        on_press: root.capture()
+                
 <Home>:
     canvas.before:
         Color:
@@ -37,7 +54,7 @@
                 font_size: self.width*10/100
                 background_color: utils.get_color_from_hex('#1C2942')
                 color: utils.get_color_from_hex('#FFFFFF')
-                on_press: root.take_picture()
+                on_press: root.manager.current = 'cameraview'
             Button:
                 text: "Importer une photo"
                 size_hint_y: None
