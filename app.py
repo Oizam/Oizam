@@ -8,6 +8,7 @@ from kivy.graphics.texture import Texture
 from kivy.uix.boxlayout import BoxLayout
 from kivy.config import Config
 from kivy.uix.screenmanager import ScreenManager, Screen
+import cv2
 
 Config.set('graphics', 'width', '340')
 Config.set('graphics', 'height', '700')
@@ -16,21 +17,22 @@ Builder.load_file('app.kv')
 class DescriptionView(BoxLayout):
     pass
 
-class CameraView(Screen):
-    def build(self):
-        pass
+class Loading(Screen):
+    pass
+class CameraView(Screen):  
+    def picture_taken(self, obj, filename):
+        print('Picture taken and saved to {}'.format(filename))
         
+    
 class Home(Screen):
-        
-    def import_picture(self):
-        print("picture import")
-
-
+    pass
+    
 class App(App):
     def build(self):
         sm = ScreenManager()
         sm.add_widget(Home(name='home'))
         sm.add_widget(CameraView(name='cameraview'))
+        sm.add_widget(Loading(name='loading'))
         return sm
 
 app =  App()
