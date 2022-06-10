@@ -5,29 +5,56 @@
     BoxLayout:
         orientation: "vertical"
         size: root.width, root.height
-
+        Label:
+            text: "Chargement"
+            font_size: self.width*10/100
+            color: utils.get_color_from_hex('#FFFFFF')
         ProgressBar:
             id: progress
-            value: .25
+            value: 0.25
             max: 1
             pos_hint: {'x':.1}
             size_hint_x: 0.8
 
+<Picture>:
+    FloatLayout:
+        orientation: 'vertical'
+        Image:
+            id: image
+            source: "IMG.png"
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: 1, None
+        height: sp(50)
+        Button:
+            text: "Retour"
+            font_size: self.width*10/100
+            color: utils.get_color_from_hex('#FFFFFF')
+            on_press: root.manager.current = 'cameraview'
+        Button:
+            text: "Valider"
+            font_size: self.width*10/100
+            color: utils.get_color_from_hex('#FFFFFF')
+            on_press: root.manager.current = 'loading'
+
+
 <CameraView>:
     FloatLayout:
         orientation: 'vertical'
-        XCamera:
-            id: xcamera
+        Camera:
+            id: camera
             play: True
-            on_picture_taken: root.picture_taken(*args)
             
         BoxLayout:
             orientation: 'horizontal'
             size_hint: 1, None
             height: sp(50)
-            Button:
-                text: 'Validate'
-                on_release: root.manager.current = 'loading'
+
+        Button:
+            text: 'Capture'
+            size_hint_y: None
+            height: '50dp'
+            on_press: root.capture()
 
 <Home>:
     canvas.before:
