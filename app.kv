@@ -1,6 +1,45 @@
 #:import utils kivy.utils
 #:import XCamera kivy.garden.xcamera.XCamera
 
+<BirdCard>:
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#1C2942')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols: 1
+        row_force_default: True
+        row_default_height: 200
+        Label:
+            id: bird_name
+            font_size: self.width*5/100
+            color: utils.get_color_from_hex('#FFFFFF')
+        Image:
+            id: image
+            source: "oiseau.jpg"
+
+        Label:
+            text: "Information"
+            font_size: self.width*5/100
+            color: utils.get_color_from_hex('#FFFFFF') 
+
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: 1, None
+        height: sp(50)
+        Button:
+            text: "Retour"
+            font_size: self.width*10/100
+            color: utils.get_color_from_hex('#FFFFFF')
+            on_press: root.manager.current = 'cameraview'
+        Button:
+            text: "Accueil"
+            font_size: self.width*10/100
+            color: utils.get_color_from_hex('#FFFFFF')
+            on_press: root.manager.current = 'home'
+
 <Loading>:
     BoxLayout:
         orientation: "vertical"
@@ -11,7 +50,7 @@
             color: utils.get_color_from_hex('#FFFFFF')
         ProgressBar:
             id: progress
-            value: 0.25
+            value: 0
             max: 1
             pos_hint: {'x':.1}
             size_hint_x: 0.8
