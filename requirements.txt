@@ -1,3 +1,4 @@
+python == 3.8.13
 fastapi==0.78.0
 pandas==1.2.4
 tensorflow==2.3.0
