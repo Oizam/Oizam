@@ -6,8 +6,13 @@ from os import walk
 ## Importation des photos d'oiseaux du dataset 
 def nofake_list():                      
     bird_list = []
-    for (reperoire, sousRepertoire, fichiers) in walk(bird_picture) : 
-        bird_list.append(n)
+    print("fezf")
+    path = "./Oizam/Oizam/bird_picture/OizamFrance/images/"
+    for (reperoire, sousRepertoire, fichiers) in walk(path) :
+        for rep in sousRepertoire:
+            for (repertoireb, sousRepertoireb, fichiersb) in walk(path + rep):
+                for file in fichiersb:
+                    bird_list.append(file)
     return bird_list
 
 # Importation des photos qui ne sont pas des oiseaux 
@@ -41,3 +46,5 @@ def labelisation(image_selection):
         return score
     else:
         print('Veuillez choisir une photo d oiseau')
+
+print(nofake_list())
