@@ -5,9 +5,6 @@ from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.config import Config
 from kivy.uix.screenmanager import ScreenManager, Screen
-import cv2
-from kivy.properties import ObjectProperty, ListProperty, StringProperty
-from requests import request
 from tensorflow.keras.preprocessing import image
 import tensorflow as tf
 import requests
@@ -15,7 +12,6 @@ import numpy as np
 from fastapi import UploadFile
 import json
 from json import JSONEncoder
-import numpy
 
 
 Config.set('graphics', 'width', '340')
@@ -26,7 +22,7 @@ global response
 
 class NumpyArrayEncoder(JSONEncoder):
     def default(self, obj):
-        if isinstance(obj, numpy.ndarray):
+        if isinstance(obj, np.ndarray):
             return obj.tolist()
         return JSONEncoder.default(self, obj)
 
@@ -61,8 +57,8 @@ class Picture(Screen):
 class CameraView(Screen):
 
     def capture(self):
-        camera = self.ids['camera']
-        camera.export_to_png("IMG.png")
+        # camera = self.ids['camera']
+        # camera.export_to_png("IMG.png")
         self.manager.get_screen("picture").ids.image.reload()
         sm.current = "picture"   
 
