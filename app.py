@@ -34,7 +34,7 @@ class Loading(Screen):
         global response
         progress = self.ids['progress']
         img_path = "oiseau.jpg"
-        img = image.load_img(img_path, target_size=(299, 299))
+        img = image.load_img(img_path, target_size=(50, 50))
         progress.value = 0.25
         img_array = image.img_to_array(img)
         img_batch = np.expand_dims(img_array, axis=0)
@@ -43,7 +43,10 @@ class Loading(Screen):
         body = {"Image":preprocessed_image}
         progress.value = 0.75
         encodedNumpyData = json.dumps(body, cls=NumpyArrayEncoder)
-        request = requests.get("https://oizam-api.herokuapp.com/predict/", json=encodedNumpyData)
+        try:
+            request = requests.get("https://oizam-api.herokuapp.com/predict/", json=encodedNumpyData)
+        except:
+            sm.current = "picture" 
         progress.value = 1
         response = eval(request.text)
         sm.current = "birdcard" 
