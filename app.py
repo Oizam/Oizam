@@ -1,15 +1,12 @@
 
-from unicodedata import name
 from kivy.app import App
 from kivy.lang import Builder
-from kivy.uix.boxlayout import BoxLayout
 from kivy.config import Config
 from kivy.uix.screenmanager import ScreenManager, Screen
 from tensorflow.keras.preprocessing import image
 import tensorflow as tf
 import requests
 import numpy as np
-from fastapi import UploadFile
 import json
 from json import JSONEncoder
 
@@ -46,7 +43,7 @@ class Loading(Screen):
         body = {"Image":preprocessed_image}
         progress.value = 0.75
         encodedNumpyData = json.dumps(body, cls=NumpyArrayEncoder)
-        request = requests.get("http://127.0.0.1:8000/predict/", json=encodedNumpyData)
+        request = requests.get("https://oizam-api.herokuapp.com/predict/", json=encodedNumpyData)
         progress.value = 1
         response = eval(request.text)
         sm.current = "birdcard" 
@@ -57,8 +54,8 @@ class Picture(Screen):
 class CameraView(Screen):
 
     def capture(self):
-        # camera = self.ids['camera']
-        # camera.export_to_png("IMG.png")
+        camera = self.ids['camera']
+        camera.export_to_png("IMG.png")
         self.manager.get_screen("picture").ids.image.reload()
         sm.current = "picture"   
 
