@@ -35,7 +35,7 @@ def dictionnaire (no_bird_list,bird_list,score):
     label_score = {full_list,score}
 
 #Création de la matrice de sélection pour l'utilsiateur 
-def image_selection():
+def image_selection(no_bird_list,bird_list):
     labelisation_list = []
     i = 6
     for i in labelisation_list:
@@ -45,7 +45,7 @@ def image_selection():
     random.shuffle(labelisation_list)
 
     for n in labelisation_list:
-        im = Image.open("")
+        im = Image.open(n)
 
     labelisation_list     
 
@@ -58,4 +58,3 @@ def labelisation(image_selection):
     else:
         print('Veuillez choisir une photo d oiseau')
 
-print(nofake_list())
