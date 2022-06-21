@@ -1,18 +1,20 @@
 import bird_picture
 import fake_bird_picture 
 import random
+from PIL import Image
 from os import walk
 
 ## Importation des photos d'oiseaux du dataset 
 def nofake_list():                      
     bird_list = []
-    print("fezf")
     path = "./Oizam/Oizam/bird_picture/OizamFrance/images/"
     for (reperoire, sousRepertoire, fichiers) in walk(path) :
         for rep in sousRepertoire:
             for (repertoireb, sousRepertoireb, fichiersb) in walk(path + rep):
                 for file in fichiersb:
-                    bird_list.append(file)
+                    #bird_list.append(file)
+                    im = Image.open(bird_list.append(file))
+                    bird_list.append(im)
     return bird_list
 
 # Importation des photos qui ne sont pas des oiseaux 
