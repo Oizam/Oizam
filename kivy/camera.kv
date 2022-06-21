@@ -1,0 +1,43 @@
+<PictureCamera>:
+    FloatLayout:
+        orientation: 'vertical'
+        Image:
+            id: image
+            source: "IMG.png"
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: 1, None
+        height: sp(50)
+        Button:
+            text: "Retour"
+            font_size: self.width*10/100
+            color: utils.get_color_from_hex('#FFFFFF')
+            on_press: root.manager.current = 'cameraview'
+        Button:
+            text: "Valider"
+            font_size: self.width*10/100
+            color: utils.get_color_from_hex('#FFFFFF')
+            on_press: root.manager.current = 'loading'
+
+
+<CameraView>:
+    FloatLayout:
+        orientation: 'vertical'
+        # Camera:
+        #     id: camera
+        #     play: True
+            
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, None
+            height: sp(50)
+            Button:
+                text: 'Retour'
+                size_hint_y: None
+                height: '50dp'
+                on_press: root.manager.current = 'home'
+            Button:
+                text: 'Capture'
+                size_hint_y: None
+                height: '50dp'
+                on_press: root.capture()

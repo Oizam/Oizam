@@ -1,4 +1,4 @@
-
+from unicodedata import name
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.config import Config
@@ -8,12 +8,16 @@ import tensorflow as tf
 import requests
 import numpy as np
 import json
+import os
 from json import JSONEncoder
-
+import shutil
+import re
 
 Config.set('graphics', 'width', '340')
 Config.set('graphics', 'height', '700')
-Builder.load_file('app.kv')
+Builder.load_file('kivy/app.kv')
+Builder.load_file('kivy/camera.kv')
+Builder.load_file('kivy/explorer.kv')
 sm = ScreenManager()
 global response
 
@@ -34,7 +38,7 @@ class Loading(Screen):
         global response
         progress = self.ids['progress']
         img_path = "oiseau.jpg"
-        img = image.load_img(img_path, target_size=(50, 50))
+        img = image.load_img(img_path, target_size=(150, 150))
         progress.value = 0.25
         img_array = image.img_to_array(img)
         img_batch = np.expand_dims(img_array, axis=0)
@@ -46,35 +50,58 @@ class Loading(Screen):
         try:
             request = requests.get("https://oizam-api.herokuapp.com/predict/", json=encodedNumpyData)
         except:
-            sm.current = "picture" 
+            sm.current = "home" 
         progress.value = 1
         response = eval(request.text)
+        
+        
+        
         sm.current = "birdcard" 
    
-class Picture(Screen):
+class PictureCamera(Screen):
+    pass
+
+class PictureFileChooser(Screen):
     pass
 
 class CameraView(Screen):
 
     def capture(self):
-        camera = self.ids['camera']
-        camera.export_to_png("IMG.png")
-        self.manager.get_screen("picture").ids.image.reload()
-        sm.current = "picture"   
+        # camera = self.ids['camera']
+        # camera.export_to_png("IMG.png")
+        self.manager.get_screen("picturecamera").ids.image.reload()
+        sm.current = "picturecamera"   
 
 class Home(Screen):
     pass
+
+class FileChooser(Screen):
+    def save(self, path):
+        regex = "([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp))$)"
+        p = re.compile(regex)
+        if(re.search(p, path)):
+            print(path)
+            try :
+                shutil.copyfile(path, "./IMG.png")
+            except:
+                pass
+            self.manager.get_screen("picturefilechooser").ids.image.reload()
+            sm.current = "picturefilechooser"
+        else:
+            pass
+            
+        
         
     
 class App(App):
-    
-
     def build(self):
         sm.add_widget(Home(name='home'))
         sm.add_widget(CameraView(name='cameraview'))
         sm.add_widget(Loading(name='loading'))
-        sm.add_widget(Picture(name="picture"))
+        sm.add_widget(PictureCamera(name="picturecamera"))
+        sm.add_widget(PictureFileChooser(name="picturefilechooser"))
         sm.add_widget(BirdCard(name="birdcard"))
+        sm.add_widget(FileChooser(name="filechooser"))
         return sm
 
 app =  App()

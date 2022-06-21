@@ -1,5 +1,4 @@
 #:import utils kivy.utils
-#:import XCamera kivy.garden.xcamera.XCamera
 
 <BirdCard>:
     canvas.before:
@@ -55,46 +54,6 @@
             pos_hint: {'x':.1}
             size_hint_x: 0.8
 
-<Picture>:
-    FloatLayout:
-        orientation: 'vertical'
-        Image:
-            id: image
-            source: "IMG.png"
-    BoxLayout:
-        orientation: 'horizontal'
-        size_hint: 1, None
-        height: sp(50)
-        Button:
-            text: "Retour"
-            font_size: self.width*10/100
-            color: utils.get_color_from_hex('#FFFFFF')
-            on_press: root.manager.current = 'cameraview'
-        Button:
-            text: "Valider"
-            font_size: self.width*10/100
-            color: utils.get_color_from_hex('#FFFFFF')
-            on_press: root.manager.current = 'loading'
-
-
-<CameraView>:
-    FloatLayout:
-        orientation: 'vertical'
-        Camera:
-            id: camera
-            play: True
-            
-        BoxLayout:
-            orientation: 'horizontal'
-            size_hint: 1, None
-            height: sp(50)
-
-        Button:
-            text: 'Capture'
-            size_hint_y: None
-            height: '50dp'
-            on_press: root.capture()
-
 <Home>:
     canvas.before:
         Color:
@@ -141,4 +100,4 @@
                 height: 100
                 font_size: self.width*10/100
                 background_color: utils.get_color_from_hex('#1C2942')
-                on_press: root.import_picture()
+                on_press: root.manager.current = 'filechooser'

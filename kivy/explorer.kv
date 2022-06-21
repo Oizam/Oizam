@@ -1,0 +1,61 @@
+<FileChooser>:
+    canvas.before: 
+        Color: 
+            rgba: utils.get_color_from_hex('#1C2942')
+        Rectangle: 
+            pos: self.pos 
+            size: self.size
+    id: filechooser 
+    text_input: text_input
+    BoxLayout: 
+        orientation: 'vertical'
+        FileChooserListView:
+            canvas.before: 
+                Color: 
+                    rgba: utils.get_color_from_hex('#1C2942')
+                Rectangle: 
+                    pos: self.pos 
+                    size: self.size
+            id: filechooser
+            path: "C:/Users/Apprenant/Desktop"
+            on_selection: text_input.text = self.selection and self.selection[0] or ''
+        TextInput:
+            id: text_input
+            size_hint_y: None
+            height: 30
+            multiline: False
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, None
+            height: sp(50)
+            Button:
+                text: "Retour"
+                font_size: self.width*10/100
+                color: utils.get_color_from_hex('#FFFFFF')
+                on_press: root.manager.current = 'home'
+            Button:
+                text: "Valider"
+                font_size: self.width*10/100
+                color: utils.get_color_from_hex('#FFFFFF')
+                on_press: root.save(text_input.text)
+
+<PictureFileChooser>:
+    FloatLayout:
+        orientation: 'vertical'
+        Image:
+            id: image
+            source: "IMG.png"
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: 1, None
+        height: sp(50)
+        Button:
+            text: "Retour"
+            font_size: self.width*10/100
+            color: utils.get_color_from_hex('#FFFFFF')
+            on_press: root.manager.current = 'filechooser'
+        Button:
+            text: "Valider"
+            font_size: self.width*10/100
+            color: utils.get_color_from_hex('#FFFFFF')
+            on_press: root.manager.current = 'loading'
