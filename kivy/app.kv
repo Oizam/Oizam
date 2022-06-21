@@ -7,22 +7,41 @@
         Rectangle:
             pos: self.pos
             size: self.size
-    GridLayout:
-        cols: 1
-        row_force_default: True
-        row_default_height: 200
-        Label:
-            id: bird_name
-            font_size: self.width*5/100
-            color: utils.get_color_from_hex('#FFFFFF')
-        Image:
-            id: image
-            source: "oiseau.jpg"
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        GridLayout:
+            cols: 1
+            row_force_default: True
+            row_default_height: 200
+            Label:
+                id: bird_name
+                font_size: self.width*5/100
+                color: utils.get_color_from_hex('#FFFFFF')
+            AsyncImage:
+                id: image
+                source: "oiseau.jpg"
+            Label:
+                text: "Information"
+                font_size: self.width*5/100
+                color: utils.get_color_from_hex('#FFFFFF')
 
-        Label:
-            text: "Information"
-            font_size: self.width*5/100
-            color: utils.get_color_from_hex('#FFFFFF') 
+            Label:
+                id: taille
+                font_size: self.width*5/100
+                color: utils.get_color_from_hex('#FFFFFF') 
+            Label:
+                id: genre
+                font_size: self.width*5/100
+                color: utils.get_color_from_hex('#FFFFFF') 
+            Label:
+                id: disparition
+                font_size: self.width*5/100
+                color: utils.get_color_from_hex('#FFFFFF') 
+            Label:
+                id: text
+                font_size: self.width*5/100
+                color: utils.get_color_from_hex('#FFFFFF') 
 
     BoxLayout:
         orientation: 'horizontal'
