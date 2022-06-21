@@ -1,27 +1,31 @@
+from importlib.resources import path
+from operator import imod
 import bird_picture
 import fake_bird_picture 
 import random
-from PIL import Image
 from os import walk
+from PIL import Image
 
 ## Importation des photos d'oiseaux du dataset 
 def nofake_list():                      
     bird_list = []
-    path = "./Oizam/Oizam/bird_picture/OizamFrance/images/"
+    path = "/home/valentin/Documents/projet_oizam/Oizam/Oizam/bird_picture/OizamFrance/images/"
     for (reperoire, sousRepertoire, fichiers) in walk(path) :
         for rep in sousRepertoire:
             for (repertoireb, sousRepertoireb, fichiersb) in walk(path + rep):
                 for file in fichiersb:
-                    #bird_list.append(file)
-                    im = Image.open(bird_list.append(file))
-                    bird_list.append(im)
+                    bird_list.append(path + rep + '/' + file)
     return bird_list
 
 # Importation des photos qui ne sont pas des oiseaux 
 def fake_list(): 
     no_bird_list = []
-    for n in fake_bird_picture:
-        no_bird_list.append(n)
+    path = "/home/valentin/Documents/projet_oizam/Oizam/Oizam/fake_bird_picture"
+    for (reperoire, sousRepertoire, fichiers) in walk(path) :
+        for rep in sousRepertoire:
+            for (repertoireb, sousRepertoireb, fichiersb) in walk(path + rep):
+                for file in fichiersb:
+                    no_bird_list.append(path + rep + '/' + file)
     return no_bird_list
 
 # Création d'une liste des labels avec un score de crédibilité
@@ -35,10 +39,15 @@ def image_selection():
     labelisation_list = []
     i = 6
     for i in labelisation_list:
-        labelisation_list.append(random.choice(fake_bird_picture))
-    labelisation_true_image = random.choice(bird_picture)
+        labelisation_list.append(random.choice(no_bird_list))
+    labelisation_true_image = random.choice(bird_list)
     labelisation_list.append(labelisation_true_image)
     random.shuffle(labelisation_list)
+
+    for n in labelisation_list:
+        im = Image.open("")
+
+    labelisation_list     
 
 # Labelisation par l'utilisateur 
 def labelisation(image_selection):
