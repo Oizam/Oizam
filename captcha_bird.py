@@ -42,10 +42,10 @@ def image_selection(no_bird_list,bird_list):
     labelisation_list.append(random.choice(bird_list))
     random.shuffle(labelisation_list)
 
-    for n in labelisation_list:
-        im = Image.open(n)
-        im.show()
-    
+    for lettre in labelisation_list:
+        lettre = Image.open(lettre)
+        lettre.show()
+
 # Labelisation par l'utilisateur 
 def labelisation(labelisation_list):
     label = input ('Choissisez la photo d oiseau :')
