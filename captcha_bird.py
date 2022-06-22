@@ -1,11 +1,16 @@
 from importlib.resources import path
 from operator import imod
 from pathlib import Path
+
+from matplotlib import image
 import bird_picture
 import fake_bird_picture 
 import random
 from os import walk
 from PIL import Image
+import numpy as np
+import pylab
+import matplotlib.cm as cm
 
 ## Importation des photos d'oiseaux du dataset 
 def nofake_list():                      
@@ -36,15 +41,20 @@ def dictionnaire (no_bird_list,bird_list,score):
 #Création de la matrice de sélection pour l'utilsiateur 
 def image_selection(no_bird_list,bird_list):
     labelisation_list = []
+    f=pylab.figure()
     i = 7
     for j in range(0,i):
         labelisation_list.append(random.choice(no_bird_list))
     labelisation_list.append(random.choice(bird_list))
     random.shuffle(labelisation_list)
 
-    for lettre in labelisation_list:
-        lettre = Image.open(lettre)
-        lettre.show()
+    for letter in labelisation_list:
+        image = Image.open(letter)
+        arr = np.asarray(image)
+        f.add_subplot(image)
+        pylab.inshow(arr)
+    
+    pylab.show()
 
 # Labelisation par l'utilisateur 
 def labelisation(labelisation_list):
