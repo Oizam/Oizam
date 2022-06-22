@@ -37,28 +37,34 @@ def dictionnaire (no_bird_list,bird_list,score):
     full_list = no_bird_list + bird_list
     label_score = {full_list,score}
 
-#Création de la matrice de sélection pour l'utilsiateur 
+#Création d'une selection d'image 
 def image_selection(no_bird_list,bird_list, rows = 1, cols=1):
     labelisation_list = []
-    i = 7
+    i = 8
     for j in range(0,i):
         labelisation_list.append(random.choice(no_bird_list))
     labelisation_list.append(random.choice(bird_list))
     random.shuffle(labelisation_list)
+    return labelisation_list
 
-    figure, ax = plt.subplots(nrows=rows,ncols=cols )
-    for letter in enumerate(labelisation_list):
-        ax.ravel()[letter].imshow(images[title])
-        ax.ravel()[letter].set_title(title)
-        ax.ravel()[letter].set_axis_off()
-    plt.tight_layout()
-    plt.show()
+#Création d'une matrice d'image 
+#def matrice(images, rows = 1, cols=1):
+        #figure, ax = plt.subplots(nrows=rows,ncols=cols )
+        #for ind,title in enumerate(images):
+        #    ax.ravel()[ind].imshow(images[title])
+        #    ax.ravel()[ind].set_axis_off()
+        #plt.tight_layout()
+        #plt.show()
+    
+ #   total_images = 9
+  #  images = {'Image'+str(i): np.random.rand(100, 100) for i in range(total_images)}
+  #  matrice(images, 3,3)
 
-total_images = 9
 
 # https://www.delftstack.com/fr/howto/matplotlib/how-to-display-multiple-images-in-one-figure-correctly-in-matplotlib/   
 
 # Labelisation par l'utilisateur 
+
 def labelisation(labelisation_list):
     label = input ('Choissisez la photo d oiseau :')
     if label in bird_picture == True:
