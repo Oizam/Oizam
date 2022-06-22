@@ -1,7 +1,6 @@
 from importlib.resources import path
 from operator import imod
 from pathlib import Path
-
 from matplotlib import image
 import bird_picture
 import fake_bird_picture 
@@ -10,7 +9,7 @@ from os import walk
 from PIL import Image
 import numpy as np
 import pylab
-import matplotlib.cm as cm
+import matplotlib.pyplot as plt
 
 ## Importation des photos d'oiseaux du dataset 
 def nofake_list():                      
@@ -39,22 +38,25 @@ def dictionnaire (no_bird_list,bird_list,score):
     label_score = {full_list,score}
 
 #Création de la matrice de sélection pour l'utilsiateur 
-def image_selection(no_bird_list,bird_list):
+def image_selection(no_bird_list,bird_list, rows = 1, cols=1):
     labelisation_list = []
-    f=pylab.figure()
     i = 7
     for j in range(0,i):
         labelisation_list.append(random.choice(no_bird_list))
     labelisation_list.append(random.choice(bird_list))
     random.shuffle(labelisation_list)
 
-    for letter in labelisation_list:
-        image = Image.open(letter)
-        arr = np.asarray(image)
-        f.add_subplot(image)
-        pylab.inshow(arr)
-    
-    pylab.show()
+    figure, ax = plt.subplots(nrows=rows,ncols=cols )
+    for letter in enumerate(labelisation_list):
+        ax.ravel()[letter].imshow(images[title])
+        ax.ravel()[letter].set_title(title)
+        ax.ravel()[letter].set_axis_off()
+    plt.tight_layout()
+    plt.show()
+
+total_images = 9
+
+# https://www.delftstack.com/fr/howto/matplotlib/how-to-display-multiple-images-in-one-figure-correctly-in-matplotlib/   
 
 # Labelisation par l'utilisateur 
 def labelisation(labelisation_list):
