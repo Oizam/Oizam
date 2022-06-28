@@ -78,12 +78,12 @@
                         text: "Retour"
                         font_size: self.width*10/100
                         color: utils.get_color_from_hex('#FFFFFF')
-                        on_press: root.manager.current = 'cameraview'
+                        on_press: root.manager.transition.direction = "right"; root.manager.current = 'home'
                     Button:
                         text: "Accueil"
                         font_size: self.width*10/100
                         color: utils.get_color_from_hex('#FFFFFF')
-                        on_press: root.manager.current = 'home'
+                        on_press: root.manager.transition.direction = "right"; root.manager.current = 'home'
 
 <Loading>:
     BoxLayout:
@@ -99,6 +99,16 @@
             max: 1
             pos_hint: {'x':.1}
             size_hint_x: 0.8
+
+<LoadApp>:
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+        Label:
+            text: "Loading"
+            font_size: self.width*10/100
+            color: utils.get_color_from_hex('#FFFFFF')
+        
 
 <Home>:
     canvas.before:
@@ -138,7 +148,7 @@
                 font_size: self.width*10/100
                 background_color: utils.get_color_from_hex('#1C2942')
                 color: utils.get_color_from_hex('#FFFFFF')
-                on_press: root.manager.current = 'cameraview'
+                on_press: root.manager.transition.direction = "left"; root.manager.current = 'cameraview'
             Button:
                 text: "Importer une photo"
                 size_hint_y: None
@@ -146,7 +156,7 @@
                 height: 100
                 font_size: self.width*10/100
                 background_color: utils.get_color_from_hex('#1C2942')
-                on_press: root.manager.current = 'filechooser'
+                on_press: root.manager.transition.direction = "left"; root.manager.current = 'filechooser'
             Label:
                 text: "Français"
                 font_size: self.width*10/100

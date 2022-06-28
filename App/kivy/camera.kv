@@ -12,20 +12,20 @@
             text: "Retour"
             font_size: self.width*10/100
             color: utils.get_color_from_hex('#FFFFFF')
-            on_press: root.manager.current = 'cameraview'
+            on_press: root.manager.transition.direction = "right"; root.manager.current = 'cameraview'
         Button:
             text: "Valider"
             font_size: self.width*10/100
             color: utils.get_color_from_hex('#FFFFFF')
-            on_press: root.manager.current = 'loading'
+            on_press: root.manager.transition.direction = "left"; root.manager.current = 'loading'
 
 
 <CameraView>:
     FloatLayout:
         orientation: 'vertical'
-        # Camera:
-        #     id: camera
-        #     play: True
+        Camera:
+            id: camera
+            play: True
             
         BoxLayout:
             orientation: 'horizontal'
@@ -35,9 +35,9 @@
                 text: 'Retour'
                 size_hint_y: None
                 height: '50dp'
-                on_press: root.manager.current = 'home'
+                on_press: root.manager.transition.direction = "right"; root.manager.current = 'home'
             Button:
                 text: 'Capture'
                 size_hint_y: None
                 height: '50dp'
-                on_press: root.capture()
+                on_press: root.manager.transition.direction = "left"; root.capture()
