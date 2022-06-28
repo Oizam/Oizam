@@ -15,5 +15,6 @@ Pillow==9.1.1
 Pygments==2.12.0
 pypiwin32==223
 pywin32==304
+tensorflow
 requests==2.27.1
 urllib3==1.26.9

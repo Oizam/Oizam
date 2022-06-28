@@ -1,0 +1,166 @@
+#:import utils kivy.utils
+
+<BirdCard>:
+    height: self.height
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#1C2942')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        scroll_type:['bars', 'content']
+        bar_width: 7
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            row_default_height: 100
+            height: self.minimum_height
+            GridLayout:
+                cols: 2
+                AsyncImage:
+                    allow_stretch: True
+                    width: self.width
+                    id: image
+                    source: "oiseau.jpg"
+
+                Label:
+                    width: self.width
+                    id: bird_name
+                    font_size: self.width*11/100
+                    color: utils.get_color_from_hex('#F91B0D')
+                
+            Label:
+                width: self.width
+                text: "Information"
+                font_size: self.width*10/100
+                color: utils.get_color_from_hex('#F9830D')
+            GridLayout:
+                cols: 2
+                Label:
+                    width: self.width
+                    id: taille
+                    font_size: self.width*10/100
+                    color: utils.get_color_from_hex('#FFFFFF') 
+                Label:
+                    width: self.width
+                    id: genre
+                    font_size: self.width*10/100
+                    color: utils.get_color_from_hex('#FFFFFF')
+            GridLayout:
+                cols: 1
+                size_hint_y: None
+                width: self.width
+                height: 400
+                ScrollView:
+                    do_scroll_x: False
+                    do_scroll_y: True
+                    scroll_type:['bars', 'content']
+                    bar_width: 7
+                    TextInput:
+                        size_hint_y: None
+                        width: self.width
+                        height: 1000
+                        halign: 'center'
+                        valign: 'middle'
+                        id: text
+                        readonly: True
+                        font_size: self.width*5/100
+                        background_color: utils.get_color_from_hex('#1C2942')
+                        foreground_color: utils.get_color_from_hex('#FFFFFF') 
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint: 1, None
+                    height: sp(50)
+                    Button:
+                        text: "Retour"
+                        font_size: self.width*10/100
+                        color: utils.get_color_from_hex('#FFFFFF')
+                        on_press: root.manager.current = 'cameraview'
+                    Button:
+                        text: "Accueil"
+                        font_size: self.width*10/100
+                        color: utils.get_color_from_hex('#FFFFFF')
+                        on_press: root.manager.current = 'home'
+
+<Loading>:
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+        Label:
+            text: "Chargement"
+            font_size: self.width*10/100
+            color: utils.get_color_from_hex('#FFFFFF')
+        ProgressBar:
+            id: progress
+            value: 0
+            max: 1
+            pos_hint: {'x':.1}
+            size_hint_x: 0.8
+
+<Home>:
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#1C2942')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols: 1
+        row_force_default: True
+        row_default_height: 200
+        GridLayout:
+            cols: 2
+            
+            Image:
+                source:"logo.jpeg"
+                allow_stretch: True
+            
+            Label:
+                text: "Oizam"
+                font_size: self.width*30/100
+                color: utils.get_color_from_hex('#FFFFFF')
+        
+        Label:
+            text: """Bonjour, afin d'utiliser Oizam veuillez :"""
+            font_size: self.width*5/100
+            color: utils.get_color_from_hex('#FFFFFF')
+            height: 100
+        GridLayout:
+            cols: 2
+            Button:
+                text: "Prendre une photo"
+                size_hint_y: None
+                width: self.width
+                height: 100
+                font_size: self.width*10/100
+                background_color: utils.get_color_from_hex('#1C2942')
+                color: utils.get_color_from_hex('#FFFFFF')
+                on_press: root.manager.current = 'cameraview'
+            Button:
+                text: "Importer une photo"
+                size_hint_y: None
+                width: self.width
+                height: 100
+                font_size: self.width*10/100
+                background_color: utils.get_color_from_hex('#1C2942')
+                on_press: root.manager.current = 'filechooser'
+            Label:
+                text: "Français"
+                font_size: self.width*10/100
+                color: utils.get_color_from_hex('#FFFFFF')
+            Label:
+                text: "Américain"
+                font_size: self.width*10/100
+                color: utils.get_color_from_hex('#FFFFFF')
+
+            CheckBox:
+                group: "mode"
+                on_active: root.check_fr()
+                active: True
+            
+            CheckBox:
+                group: "mode"
+                on_active: root.check_us()
