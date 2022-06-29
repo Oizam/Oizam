@@ -58,6 +58,10 @@ class Loading(Screen):
         self.manager.current = "birdcard" 
         
 class Home(Screen):
+    def deconnexion(self):
+        self.manager.current = "login" 
+        #supprimer tokker
+    
     def check_fr(self):
         os.environ["mode_model"] = "FR"
         

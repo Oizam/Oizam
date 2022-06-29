@@ -19,7 +19,7 @@ class App(App):
         
         os.environ["mode_model"] = "FR"
         sm.add_widget(login_signup.Login(name='login'))
-        sm.add_widget(login_signup.SignUp(name='home'))
+        sm.add_widget(login_signup.SignUp(name='signup'))
         sm.add_widget(app.Home(name='home'))
         sm.add_widget(app.BirdCard(name="birdcard"))
         sm.add_widget(app.Loading(name='loading'))

@@ -20,6 +20,50 @@
                 text: "Oizam"
                 font_size: self.width*30/100
                 color: utils.get_color_from_hex('#FFFFFF')
+    FloatLayout:
+        size: self.size
+        TextInput:
+            id: login
+            size_hint: .9, .05
+            multiline: False
+            hint_text: "Login"
+            pos_hint: {"center_x":0.5, "center_y":0.6}
+            background_color: (255, 255, 255, 255)
+
+        TextInput:
+            id: password
+            size_hint: .7, .05
+            hint_text: 'Password'
+            multiline: False
+            pos_hint: {"center_x":0.4, "center_y":0.5}
+            password: True
+            background_color: (255, 255, 255, 255)
+            password_mask: '*'
+
+        Button:
+            id: visibility
+            on_press: root.visibility()
+            size_hint: .2, .05
+            pos_hint: {"center_x": .86, "center_y": .4999}
+            background_color: (255,255,255,255)
+            color: (0,0,0,10)
+            text: 'Afficher'
+        
+        Button:
+            id: signin
+            on_press: root.connection()
+            size_hint: .4, .05
+            pos_hint: {"center_x":0.75, "center_y":0.4}
+            background_color: utils.get_color_from_hex('#000000')
+            text: 'Se Connecter'
+
+        Button:
+            id: signup
+            on_press: root.manager.current = 'signup'
+            size_hint: .4, .05
+            pos_hint: {"center_x":0.25, "center_y":0.4}
+            background_color: utils.get_color_from_hex('#000000')
+            text: 'Creer un compte'
         
        
 

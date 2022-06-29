@@ -142,7 +142,6 @@
             cols: 2
             Button:
                 text: "Prendre une photo"
-                size_hint_y: None
                 width: self.width
                 height: 100
                 font_size: self.width*10/100
@@ -151,7 +150,6 @@
                 on_press: root.manager.transition.direction = "left"; root.manager.current = 'cameraview'
             Button:
                 text: "Importer une photo"
-                size_hint_y: None
                 width: self.width
                 height: 100
                 font_size: self.width*10/100
@@ -174,3 +172,12 @@
             CheckBox:
                 group: "mode"
                 on_active: root.check_us()
+    FloatLayout:
+        size: self.size
+        Button:
+            id: signout
+            on_press: root.deconnexion()
+            size_hint: .4, .05
+            pos_hint: {"center_x":0.2, "center_y":0.02}
+            background_color: utils.get_color_from_hex('#000000')
+            text: 'Se Deconnecter'
