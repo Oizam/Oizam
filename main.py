@@ -1,4 +1,4 @@
-from App.src import app, camera, explorer, model_dowloader, error
+from App.src import app, camera, explorer, model_dowloader, error, login_signup
 from kivy.app import App
 from kivy.config import Config
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -18,7 +18,8 @@ class App(App):
     def build(self):
         
         os.environ["mode_model"] = "FR"
-        
+        sm.add_widget(login_signup.Login(name='login'))
+        sm.add_widget(login_signup.SignUp(name='home'))
         sm.add_widget(app.Home(name='home'))
         sm.add_widget(app.BirdCard(name="birdcard"))
         sm.add_widget(app.Loading(name='loading'))

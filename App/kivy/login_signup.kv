@@ -1,0 +1,49 @@
+<Login>:
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#1C2942')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols: 1
+        row_force_default: True
+        row_default_height: 200
+        GridLayout:
+            cols: 2
+            
+            Image:
+                source:"logo.jpeg"
+                allow_stretch: True
+            
+            Label:
+                text: "Oizam"
+                font_size: self.width*30/100
+                color: utils.get_color_from_hex('#FFFFFF')
+        
+       
+
+<SignUp>:
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#1C2942')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols: 1
+        row_force_default: True
+        row_default_height: 200
+        GridLayout:
+            cols: 2
+            
+            Image:
+                source:"logo.jpeg"
+                allow_stretch: True
+            
+            Label:
+                text: "Oizam"
+                font_size: self.width*30/100
+                color: utils.get_color_from_hex('#FFFFFF')
+        
+        
