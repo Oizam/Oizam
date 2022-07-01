@@ -25,4 +25,6 @@ class Login(Screen):
             self.manager.current = "home"
 
 class SignUp(Screen):
-    pass
+    def profile_creation(self):
+        self.manager.transition.direction = "left"
+        self.manager.current = "home"
