@@ -24,6 +24,7 @@
         size: self.size
         TextInput:
             id: login
+            text: "yaya@gmail.com"
             size_hint: .9, .05
             multiline: False
             hint_text: "Login"
@@ -32,6 +33,7 @@
 
         TextInput:
             id: password
+            text: "devine"
             size_hint: .7, .05
             hint_text: 'Password'
             multiline: False
@@ -59,7 +61,7 @@
 
         Button:
             id: signup
-            on_press: root.manager.current = 'signup'
+            on_press: root.manager.transition.direction = "left"; root.manager.current = 'signup'
             size_hint: .4, .05
             pos_hint: {"center_x":0.25, "center_y":0.4}
             background_color: utils.get_color_from_hex('#000000')

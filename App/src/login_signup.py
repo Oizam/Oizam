@@ -1,5 +1,7 @@
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
+import requests
+import os
 
 Builder.load_file('App/kivy/login_signup.kv')
 
@@ -15,7 +17,12 @@ class Login(Screen):
             visibility.text = "Afficher"
     
     def connection(self):
-        self.manager.current = "home"
+        body = {"email": self.ids["login"].text, "hashed_password": self.ids["password"].text}
+        response  = requests.post("https://oizam.herokuapp.com/login/login", json=body)
+        if response.status_code == 200:
+            os.environ["TOKEN"] =  response.json()["access token"]
+            self.manager.transition.direction = "left"
+            self.manager.current = "home"
 
 class SignUp(Screen):
     pass

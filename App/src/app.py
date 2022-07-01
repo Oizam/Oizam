@@ -59,6 +59,7 @@ class Loading(Screen):
         
 class Home(Screen):
     def deconnexion(self):
+        self.manager.transition.direction = "right"
         self.manager.current = "login" 
         #supprimer tokker
     
