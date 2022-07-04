@@ -10,6 +10,8 @@ from PIL import Image
 import numpy as np
 import pylab
 import matplotlib.pyplot as plt
+from PIL import Image
+from matplotlib import pyplot as plt
 
 ## Importation des photos d'oiseaux du dataset 
 def nofake_list():                      
@@ -48,23 +50,48 @@ def image_selection(no_bird_list,bird_list, rows = 1, cols=1):
     return labelisation_list
 
 #Création d'une matrice d'image 
-#def matrice(images, rows = 1, cols=1):
-        #figure, ax = plt.subplots(nrows=rows,ncols=cols )
-        #for ind,title in enumerate(images):
-        #    ax.ravel()[ind].imshow(images[title])
-        #    ax.ravel()[ind].set_axis_off()
-        #plt.tight_layout()
-        #plt.show()
+def matrice(images, rows = 1, cols=1, figsize=(15,15)):
+        figure, ax = plt.subplots(nrows=rows,ncols=cols,figsize=figsize)
+        for ind,title in enumerate(images):
+            ax.ravel()[ind].imshow(images[title])
+            ax.ravel()[ind].set_axis_off()
+        plt.tight_layout()
+        plt.show()
+
+def create_list_images_from_path(image_paths_list):
+    images = []
+    for image_path in image_paths_list:
+        images.append(Image.open(image_path))
+    return images
+
+def image_grid(imgs, rows, cols):
+    assert len(imgs) == rows*cols
+
+    w, h = imgs[0].size
+    grid = Image.new('RGB', size=(cols*w, rows*h))
+    grid_w, grid_h = grid.size
     
- #   total_images = 9
-  #  images = {'Image'+str(i): np.random.rand(100, 100) for i in range(total_images)}
-  #  matrice(images, 3,3)
+    for i, img in enumerate(imgs):
+        grid.paste(img, box=(i%cols*w, i//cols*h))
+    return grid
+
+def resize_image(image_paths, height, width):
+    resized_images = []
+    for image_path in image_paths:
+        new_size = (width, height)
+        resized_images.append(np.asarray(Image.open(image_path).resize(new_size)))
+    return resized_images
 
 
-# https://www.delftstack.com/fr/howto/matplotlib/how-to-display-multiple-images-in-one-figure-correctly-in-matplotlib/   
+total_images = 9
+labelisation_list = image_selection(fake_list(),nofake_list())
+resized_images = resize_image(labelisation_list, 300, 300)
+images = {'Image'+str(i): image_oiseau for i, image_oiseau in enumerate(resized_images)}
+
+matrice(images, 3,3)
+
 
 # Labelisation par l'utilisateur 
-
 def labelisation(labelisation_list):
     label = input ('Choissisez la photo d oiseau :')
     if label in bird_picture == True:
@@ -72,4 +99,3 @@ def labelisation(labelisation_list):
         return score
     else:
         print('Veuillez choisir une photo d oiseau')
-
