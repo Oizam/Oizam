@@ -82,14 +82,12 @@ def resize_image(image_paths, height, width):
         resized_images.append(np.asarray(Image.open(image_path).resize(new_size)))
     return resized_images
 
-
 total_images = 9
 labelisation_list = image_selection(fake_list(),nofake_list())
 resized_images = resize_image(labelisation_list, 300, 300)
 images = {'Image'+str(i): image_oiseau for i, image_oiseau in enumerate(resized_images)}
-
 matrice(images, 3,3)
-
+matrice_selection = matrice(images, 3,3)
 
 # Labelisation par l'utilisateur 
 def labelisation(labelisation_list):
