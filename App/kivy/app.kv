@@ -75,15 +75,15 @@
                     size_hint: 1, None
                     height: sp(50)
                     Button:
-                        text: "Retour"
+                        text: "Acceuil"
                         font_size: self.width*10/100
                         color: utils.get_color_from_hex('#FFFFFF')
                         on_press: root.manager.transition.direction = "right"; root.manager.current = 'home'
                     Button:
-                        text: "Accueil"
+                        text: "Dex"
                         font_size: self.width*10/100
                         color: utils.get_color_from_hex('#FFFFFF')
-                        on_press: root.manager.transition.direction = "right"; root.manager.current = 'home'
+                        on_press: root.manager.transition.direction = "left"; root.manager.current = 'dex'
 
 <Loading>:
     BoxLayout:
@@ -181,3 +181,12 @@
             pos_hint: {"center_x":0.2, "center_y":0.02}
             background_color: utils.get_color_from_hex('#000000')
             text: 'Se Deconnecter'
+        Button:
+            text: "Dex"
+            size_hint: .4, .05
+            pos_hint: {"center_x":0.8, "center_y":0.02}
+            height: 100
+            font_size: self.width*10/100
+            background_color: utils.get_color_from_hex('#1C2942')
+            color: utils.get_color_from_hex('#FFFFFF')
+            on_press: root.manager.transition.direction = "left"; root.manager.current = 'dex'

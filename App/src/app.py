@@ -5,6 +5,7 @@ from tensorflow import keras
 from kivy.lang import Builder
 import os
 import pandas as pd
+import requests
 
 global response
 global modelFR
@@ -13,13 +14,12 @@ Builder.load_file('App/kivy/app.kv')
 
 class BirdCard(Screen):
     def on_enter(self):
-        for i, row in response.iterrows():
-            self.ids['bird_name'].text = str(row['french name'])
-            self.ids['image'].source = str(row['image'])
-            self.ids['image'].reload()
-            self.ids['taille'].text = "Taille : " + str(row['taille'])
-            self.ids['genre'].text =  "Genre : " + str(row['genre'])
-            self.ids['text'].text =  "Détail : " + str(row['text'])
+        self.ids['bird_name'].text = response['french_name']
+        self.ids['image'].source = response['image']
+        self.ids['image'].reload()
+        self.ids['taille'].text = "Taille : " + response['taille']
+        self.ids['genre'].text =  "Genre : " + response['genre']
+        self.ids['text'].text =  "Détail : " + response['text']
 
 class LoadApp(Screen):
     def __init__(self, **kw):
@@ -32,9 +32,6 @@ class LoadApp(Screen):
         
             
 class Loading(Screen):
-    def __init__(self, **kw):
-        self.bird_dex = pd.read_csv("App/data/OiseauxFini.csv")
-        super().__init__(**kw)
   
     def on_enter(self):
         global response
@@ -53,9 +50,14 @@ class Loading(Screen):
             predict = modelUS.predict(preprocessed_image)
             id = predict.argmax() + 1
         #modification bdd
-        response = self.bird_dex[self.bird_dex["id"] == id]
-        progress.value = 1     
-        self.manager.current = "birdcard" 
+        response  = requests.get("https://oizam.herokuapp.com/bird/"+str(id))
+        if response.status_code == 200:
+            body = {"bird_id": str(id), "user_id": str(os.environ["ID"])}
+            requests.post("https://oizam.herokuapp.com/OiseauxDex", json=body)
+            response = response.json()
+            self.manager.current = "birdcard"
+        else:
+            self.manager.current = "home"
         
 class Home(Screen):
     def deconnexion(self):

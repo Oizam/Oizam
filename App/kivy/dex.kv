@@ -1,0 +1,43 @@
+<Dex>:
+    height: self.height
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#1C2942')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols: 1
+        row_force_default: True
+        row_default_height: 150
+        GridLayout:
+            cols: 2
+            
+            Image:
+                source:"logo.jpeg"
+                allow_stretch: True
+            
+            Label:
+                text: "Birdex"
+                font_size: self.width*20/100
+                color: utils.get_color_from_hex('#FFFFFF')
+    FloatLayout:
+        ScrollView:
+            size_hint: .9, .6
+            pos_hint: {"center_x":0.5, "center_y":0.5}
+            do_scroll_x: False
+            do_scroll_y: True
+            scroll_type:['bars', 'content']
+            bar_width: 7
+            GridLayout:
+                cols: 3
+                id: dex
+        Button:
+            text: "Acceuil"
+            size_hint: .4, .05
+            pos_hint: {"center_x":0.8, "center_y":0.02}
+            height: 100
+            font_size: self.width*10/100
+            background_color: utils.get_color_from_hex('#1C2942')
+            color: utils.get_color_from_hex('#FFFFFF')
+            on_press: root.manager.transition.direction = "right"; root.manager.current = 'home'

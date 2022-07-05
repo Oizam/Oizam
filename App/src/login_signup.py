@@ -24,6 +24,7 @@ class Login(Screen):
         body = {"email": self.ids["login"].text, "hashed_password": self.ids["password"].text}
         response  = requests.post("https://oizam.herokuapp.com/login/login", json=body)
         if response.status_code == 200:
+            os.environ["ID"] =  str(response.json()["user_connected"])
             os.environ["TOKEN"] =  response.json()["access token"]
             self.manager.transition.direction = "left"
             self.manager.current = "home"

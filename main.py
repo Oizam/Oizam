@@ -1,7 +1,7 @@
-from App.src import app, camera, explorer, model_dowloader, error, login_signup
+from App.src import app, camera, explorer, model_dowloader, error, login_signup, dex
 from kivy.app import App
 from kivy.config import Config
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import ScreenManager
 import os
  
 Config.set('graphics', 'width', '340')
@@ -28,6 +28,7 @@ class App(App):
         sm.add_widget(camera.PictureCamera(name="picturecamera"))
         sm.add_widget(explorer.PictureFileChooser(name="picturefilechooser"))
         sm.add_widget(explorer.FileChooser(name="filechooser"))
+        sm.add_widget(dex.Dex(name="dex"))
         return sm
 
 if __name__ == "__main__":
@@ -39,9 +40,6 @@ if __name__ == "__main__":
         path = 'App/data/model_us.h5'
         if (os.path.exists(path) != True):
             model_dowloader.download_file_from_google_drive("1hGQHUy3tS7xHEvbwqZ6rLmN72o2loPCg", path)
-        path = 'App/data/OiseauxFini.csv'
-        if (os.path.exists(path) != True):
-            model_dowloader.download_file_from_google_drive("1xRyuTuv7tSQHYrsGx1EJmSrcaAqY8X79", path)
         requierement = True
     except:
         pass
