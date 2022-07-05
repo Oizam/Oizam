@@ -1,0 +1,16 @@
+#:import utils kivy.utils
+
+<BirdCard>:
+    height: self.height
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#1C2942')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    ScrollView:
+        id: scroll
+        do_scroll_x: False
+        do_scroll_y: True
+        scroll_type:['bars', 'content']
+        bar_width: 7

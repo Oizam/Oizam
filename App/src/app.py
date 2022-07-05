@@ -4,6 +4,7 @@ import numpy as np
 from tensorflow import keras
 from kivy.lang import Builder
 import os
+import requests
 import pandas as pd
 
 global response
@@ -13,13 +14,12 @@ Builder.load_file('App/kivy/app.kv')
 
 class BirdCard(Screen):
     def on_enter(self):
-        for i, row in response.iterrows():
-            self.ids['bird_name'].text = str(row['french name'])
-            self.ids['image'].source = str(row['image'])
-            self.ids['image'].reload()
-            self.ids['taille'].text = "Taille : " + str(row['taille'])
-            self.ids['genre'].text =  "Genre : " + str(row['genre'])
-            self.ids['text'].text =  "Détail : " + str(row['text'])
+        self.ids['bird_name'].text = response['french_name']
+        self.ids['image'].source = response['image']
+        self.ids['image'].reload()
+        self.ids['taille'].text = "Taille : " + response['taille']
+        self.ids['genre'].text =  "Genre : " + response['genre']
+        self.ids['text'].text =  "Détail : " + response['text']
 
 class LoadApp(Screen):
     def __init__(self, **kw):
@@ -28,8 +28,6 @@ class LoadApp(Screen):
         modelFR = keras.models.load_model("App/data/model_fr.h5")
         modelUS = keras.models.load_model("App/data/model_us.h5")
         super().__init__(**kw)
-
-        
             
 class Loading(Screen):
     def __init__(self, **kw):
@@ -52,10 +50,14 @@ class Loading(Screen):
         else :
             predict = modelUS.predict(preprocessed_image)
             id = predict.argmax() + 1
-        #modification bdd
-        response = self.bird_dex[self.bird_dex["id"] == id]
-        progress.value = 1     
-        self.manager.current = "birdcard" 
+        response  = requests.get("https://oizam.herokuapp.com/bird/"+str(id))
+        if response.status_code == 200:
+            print(response.json())
+            response = response.json()
+            progress.value = 1
+            self.manager.current = "birdcard"
+        else:
+            self.manager.current = "home"
         
 class Home(Screen):
     def deconnexion(self):

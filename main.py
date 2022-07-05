@@ -1,4 +1,4 @@
-from App.src import app, camera, explorer, model_dowloader, error, login_signup
+from App.src import app, camera, explorer, model_dowloader, error, login_signup, dex
 from kivy.app import App
 from kivy.config import Config
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -16,7 +16,6 @@ class Error(App):
                        
 class App(App):
     def build(self):
-        
         os.environ["mode_model"] = "FR"
         sm.add_widget(login_signup.Login(name='login'))
         sm.add_widget(login_signup.SignUp(name='signup'))
@@ -28,6 +27,7 @@ class App(App):
         sm.add_widget(camera.PictureCamera(name="picturecamera"))
         sm.add_widget(explorer.PictureFileChooser(name="picturefilechooser"))
         sm.add_widget(explorer.FileChooser(name="filechooser"))
+        sm.add_widget(dex.Dex(name="dex"))
         return sm
 
 if __name__ == "__main__":
