@@ -1,3 +1,4 @@
+from unicodedata import name
 from App.src import app, camera, explorer, model_dowloader, error, login_signup, dex
 from kivy.app import App
 from kivy.config import Config
@@ -24,11 +25,13 @@ class App(App):
         sm.add_widget(app.BirdCard(name="birdcard"))
         sm.add_widget(app.Loading(name='loading'))
         sm.add_widget(app.LoadApp(name='loadapp'))
+        sm.add_widget(app.BirdChoice(name="birdchoice"))
         sm.add_widget(camera.CameraView(name='cameraview'))
         sm.add_widget(camera.PictureCamera(name="picturecamera"))
         sm.add_widget(explorer.PictureFileChooser(name="picturefilechooser"))
         sm.add_widget(explorer.FileChooser(name="filechooser"))
         sm.add_widget(dex.Dex(name="dex"))
+       
         return sm
 
 if __name__ == "__main__":

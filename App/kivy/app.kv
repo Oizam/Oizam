@@ -1,5 +1,40 @@
 #:import utils kivy.utils
 
+<BirdChoice>:
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#1C2942')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    FloatLayout:
+        orientation: 'vertical'
+        Image:
+            id: image_choice
+    GridLayout:
+        size_hint: 1, None
+        height: sp(50)
+        cols:2
+        Button:
+            text: "Précédent"
+            font_size: self.width*10/100
+            color: utils.get_color_from_hex('#FFFFFF')
+            on_press: root.previous()
+        Button:
+            text: "Suivant"
+            font_size: self.width*10/100
+            color: utils.get_color_from_hex('#FFFFFF')
+            on_press: root.next()
+        Button:
+            text: "Retour"
+            font_size: self.width*10/100
+            color: utils.get_color_from_hex('#FFFFFF')
+            on_press: root.manager.transition.direction = "right"; root.manager.current = 'cameraview'
+        Button:
+            text: "Confirmer"
+            font_size: self.width*10/100
+            color: utils.get_color_from_hex('#FFFFFF')
+            on_press: root.manager.transition.direction = "left"; root.confirm()
 <BirdCard>:
     height: self.height
     canvas.before:
@@ -155,6 +190,21 @@
                 font_size: self.width*10/100
                 background_color: utils.get_color_from_hex('#1C2942')
                 on_press: root.manager.transition.direction = "left"; root.manager.current = 'filechooser'
+            Button:
+                text: "Capturer son"
+                width: self.width
+                height: 100
+                font_size: self.width*10/100
+                background_color: utils.get_color_from_hex('#1C2942')
+                color: utils.get_color_from_hex('#FFFFFF')
+                on_press: root.manager.transition.direction = "left"; root.manager.current = 'cameraview'
+            Button:
+                text: "Importer audio"
+                width: self.width
+                height: 100
+                font_size: self.width*10/100
+                background_color: utils.get_color_from_hex('#1C2942')
+                on_press: root.manager.transition.direction = "left"; root.manager.current = 'filechooseraudio'
             Label:
                 text: "Français"
                 font_size: self.width*10/100

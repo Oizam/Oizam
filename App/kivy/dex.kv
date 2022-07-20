@@ -23,15 +23,19 @@
                 color: utils.get_color_from_hex('#FFFFFF')
     FloatLayout:
         ScrollView:
-            size_hint: .9, .6
-            pos_hint: {"center_x":0.5, "center_y":0.5}
+            size_hint: .99, .7
+            pos_hint: {"center_x":0.5, "center_y":0.45}
             do_scroll_x: False
             do_scroll_y: True
             scroll_type:['bars', 'content']
             bar_width: 7
             GridLayout:
+                size_hint_y: None
+                row_default_height: 100
+                height: self.minimum_height
                 cols: 3
                 id: dex
+
         Button:
             text: "Acceuil"
             size_hint: .4, .05
