@@ -31,11 +31,13 @@
                 text: "Retour"
                 font_size: self.width*10/100
                 color: utils.get_color_from_hex('#FFFFFF')
+                background_color: utils.get_color_from_hex('#000000')
                 on_press: root.manager.transition.direction = "right"; root.manager.current = 'home'
             Button:
                 text: "Valider"
                 font_size: self.width*10/100
                 color: utils.get_color_from_hex('#FFFFFF')
+                background_color: utils.get_color_from_hex('#000000')
                 on_press: root.save(text_input.text)
 
 <PictureFileChooser>:
@@ -52,10 +54,12 @@
             text: "Retour"
             font_size: self.width*10/100
             color: utils.get_color_from_hex('#FFFFFF')
+            background_color: utils.get_color_from_hex('#000000')
             on_press: root.manager.transition.direction = "right"; root.manager.current = 'filechooser'
         Button:
             text: "Valider"
             font_size: self.width*10/100
             color: utils.get_color_from_hex('#FFFFFF')
+            background_color: utils.get_color_from_hex('#000000')
             on_press: root.manager.transition.direction = "left"; root.manager.current = 'loading'
 

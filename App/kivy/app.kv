@@ -7,10 +7,28 @@
         Rectangle:
             pos: self.pos
             size: self.size
-    FloatLayout:
-        orientation: 'vertical'
-        Image:
+    GridLayout:
+        cols:1
+        width: self.width
+        height: 400
+        Label:
+            width: self.width
+            id: bird_name_choice
+            font_size: self.width*9/100
+        AsyncImage:
             id: image_choice
+        GridLayout:
+            cols: 2
+            Label:
+                width: self.width
+                id: taille_choice
+                font_size: self.width*9/100
+                color: utils.get_color_from_hex('#FFFFFF')
+            Label:
+                width: self.width
+                id: envergure_choice
+                font_size: self.width*9/100
+                color: utils.get_color_from_hex('#FFFFFF')     
     GridLayout:
         size_hint: 1, None
         height: sp(50)
@@ -19,21 +37,25 @@
             text: "Précédent"
             font_size: self.width*10/100
             color: utils.get_color_from_hex('#FFFFFF')
+            background_color: utils.get_color_from_hex('#000000')
             on_press: root.previous()
         Button:
             text: "Suivant"
             font_size: self.width*10/100
             color: utils.get_color_from_hex('#FFFFFF')
+            background_color: utils.get_color_from_hex('#000000')
             on_press: root.next()
         Button:
             text: "Retour"
             font_size: self.width*10/100
             color: utils.get_color_from_hex('#FFFFFF')
-            on_press: root.manager.transition.direction = "right"; root.manager.current = 'cameraview'
+            background_color: utils.get_color_from_hex('#000000')
+            on_press: root.manager.transition.direction = "right"; root.manager.current = 'home'
         Button:
             text: "Confirmer"
             font_size: self.width*10/100
             color: utils.get_color_from_hex('#FFFFFF')
+            background_color: utils.get_color_from_hex('#000000')
             on_press: root.manager.transition.direction = "left"; root.confirm()
 <BirdCard>:
     height: self.height
@@ -110,14 +132,16 @@
                     size_hint: 1, None
                     height: sp(50)
                     Button:
-                        text: "Acceuil"
+                        text: "Accueil"
                         font_size: self.width*10/100
                         color: utils.get_color_from_hex('#FFFFFF')
+                        background_color: utils.get_color_from_hex('#000000')
                         on_press: root.manager.transition.direction = "right"; root.manager.current = 'home'
                     Button:
                         text: "Dex"
                         font_size: self.width*10/100
                         color: utils.get_color_from_hex('#FFFFFF')
+                        background_color: utils.get_color_from_hex('#000000')
                         on_press: root.manager.transition.direction = "left"; root.manager.current = 'dex'
 
 <Loading>:
@@ -190,21 +214,21 @@
                 font_size: self.width*10/100
                 background_color: utils.get_color_from_hex('#1C2942')
                 on_press: root.manager.transition.direction = "left"; root.manager.current = 'filechooser'
-            Button:
-                text: "Capturer son"
-                width: self.width
-                height: 100
-                font_size: self.width*10/100
-                background_color: utils.get_color_from_hex('#1C2942')
-                color: utils.get_color_from_hex('#FFFFFF')
-                on_press: root.manager.transition.direction = "left"; root.manager.current = 'cameraview'
-            Button:
-                text: "Importer audio"
-                width: self.width
-                height: 100
-                font_size: self.width*10/100
-                background_color: utils.get_color_from_hex('#1C2942')
-                on_press: root.manager.transition.direction = "left"; root.manager.current = 'filechooseraudio'
+            # Button:
+            #     text: "Capturer son"
+            #     width: self.width
+            #     height: 100
+            #     font_size: self.width*10/100
+            #     background_color: utils.get_color_from_hex('#1C2942')
+            #     color: utils.get_color_from_hex('#FFFFFF')
+            #     on_press: root.manager.transition.direction = "left"; root.manager.current = 'cameraview'
+            # Button:
+            #     text: "Importer audio"
+            #     width: self.width
+            #     height: 100
+            #     font_size: self.width*10/100
+            #     background_color: utils.get_color_from_hex('#1C2942')
+            #     on_press: root.manager.transition.direction = "left"; root.manager.current = 'filechooseraudio'
             Label:
                 text: "Français"
                 font_size: self.width*10/100
@@ -237,6 +261,6 @@
             pos_hint: {"center_x":0.8, "center_y":0.02}
             height: 100
             font_size: self.width*10/100
-            background_color: utils.get_color_from_hex('#1C2942')
+            background_color: utils.get_color_from_hex('#000000')
             color: utils.get_color_from_hex('#FFFFFF')
             on_press: root.manager.transition.direction = "left"; root.manager.current = 'dex'

@@ -1,4 +1,3 @@
-from unicodedata import name
 from App.src import app, camera, explorer, model_dowloader, error, login_signup, dex
 from kivy.app import App
 from kivy.config import Config
@@ -8,7 +7,7 @@ import os
 Config.set('graphics', 'width', '340')
 Config.set('graphics', 'height', '700')
 
-sm = ScreenManager()
+sm = ScreenManager()  
            
 class Error(App):
     def build(self):
@@ -31,7 +30,7 @@ class App(App):
         sm.add_widget(explorer.PictureFileChooser(name="picturefilechooser"))
         sm.add_widget(explorer.FileChooser(name="filechooser"))
         sm.add_widget(dex.Dex(name="dex"))
-       
+        sm.add_widget(dex.BirdCardDex(name="birdcarddex"))
         return sm
 
 if __name__ == "__main__":
