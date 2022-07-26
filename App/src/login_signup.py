@@ -7,6 +7,8 @@ from kivy.uix.label import Label
 import requests
 import os
 
+from sqlalchemy import false
+
 Builder.load_file('App/kivy/login_signup.kv')
 
 class Login(Screen):
@@ -63,9 +65,15 @@ class SignUp(Screen):
         if(requierement == True and password == True):
             mail = True
             if (mail == True):
-                self.popup("Compte créer", "Veuillez vous connecter")
-                self.manager.transition.direction = "left"
-                self.manager.current = "login"
+                body = {"first_name": self.ids['firstname'].text, "last_name": self.ids['last_name'].text, "username" :self.ids['username'].text, "email":self.ids['email'].text, "hashed_password":self.ids['password_signup'].text, "password_lost": "lllz", "admin":"false"}
+                response  = requests.post("https://oizam.herokuapp.com/user/", json=body)
+                print(response)
+                print(response.status_code)
+                if response.status_code == 201:
+                    self.popup("Compte créer", "Veuillez vous connecter")
+                    self.manager.transition.direction = "left"
+                    self.manager.current = "login"
+                
             else:
                 self.popup("Mail incorect", "Ce mail est déja utilisé")
             
