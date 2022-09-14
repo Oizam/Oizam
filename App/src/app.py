@@ -76,6 +76,7 @@ class BirdChoice(Screen):
     def next(self):
         global index_bird
         global list_bird
+        global list_id
         
         if (index_bird < len(list_bird)-1):
             index_bird +=1
@@ -97,7 +98,10 @@ class BirdChoice(Screen):
         global bird
         global list_bird
         global index_bird
-        body = {"bird_id": str(id), "user_id": str(os.environ["ID"])}
+        body = {"bird_id": str(list_id[index_bird]) , "user_id": str(os.environ["ID"])}
+        
+        print(list_bird[index_bird])
+        print(str(os.environ["ID"]))
         requests.post("https://oizam.herokuapp.com/OiseauxDex", json=body)
         bird = list_bird[index_bird]
         self.manager.current = "birdcard"
