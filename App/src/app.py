@@ -1,10 +1,14 @@
 from App.src.proba_pred import n_most_probable, prediction, min_trust_level
 from kivy.uix.screenmanager import Screen
 from kivy.lang import Builder
+import tensorflow as tf
+from tensorflow.keras.preprocessing import image
+from PIL import Image
 from tensorflow import keras
 import os
 import requests
-
+from App.src.preprocessing import wav_to_sgram, preprocess
+import numpy as np
 
 global bird
 global list_bird
@@ -12,8 +16,10 @@ global list_id
 global index_bird
 global modelFR
 global modelUS
+global modelAudio
 global trust
 Builder.load_file('App/kivy/app.kv')
+
 
 class BirdCard(Screen):
     def on_enter(self):
@@ -42,8 +48,10 @@ class LoadApp(Screen):
     def __init__(self, **kw):
         global modelFR
         global modelUS
+        global modelAudio
         modelFR = keras.models.load_model("App/data/model_fr.h5")
         modelUS = keras.models.load_model("App/data/model_us.h5")
+        modelAudio = keras.models.load_model("App/data/model_audio.h5")
         super().__init__(**kw)
 
 class BirdChoice(Screen):
@@ -138,6 +146,39 @@ class Loading(Screen):
                 self.manager.current = "home"
         self.manager.transition.direction = "left"
         self.manager.current = "birdchoice"
+        
+class ModelAudio(Screen):
+    def preprocess(self, image):
+       return tf.keras.applications.mobilenet.preprocess_input(image)
+
+    def preprocess_song(self, song_path,target_size=(224,224)):
+      img = wav_to_sgram(song_path)
+      img_array = image.img_to_array(img).astype(np.uint8)
+      img = Image.fromarray(img_array)
+      img = img.transpose(Image.FLIP_TOP_BOTTOM)
+      img = img.resize(target_size)
+      img = np.array(img)
+      img_batch = np.expand_dims(img, axis=0)
+      return preprocess(img_batch)
+
+
+    def on_enter(self):
+        global modelAudio
+        global bird
+        global list_bird
+        global index_bird
+        
+        preprocessed_image = self.preprocess_song('sound.mp3', target_size=(224,224))
+        prediction = modelAudio.predict(preprocessed_image)
+        body = {"bird_id": str(prediction.argmax()+201) , "user_id": str(os.environ["ID"])}
+        requests.post("https://oizam.herokuapp.com/OiseauxDex", json=body)
+        response  = requests.get("https://oizam.herokuapp.com/bird/"+str(prediction.argmax()+201))
+        if response.status_code == 200:
+            self.manager.transition.direction = "left"
+            bird = response.json()
+            self.manager.current = "birdcard"
+        else:
+            self.manager.current = "home"
         
         
 class Home(Screen):

@@ -3,7 +3,7 @@ from kivy.app import App
 from kivy.config import Config
 from kivy.uix.screenmanager import ScreenManager
 import os
- 
+  
 Config.set('graphics', 'width', '340')
 Config.set('graphics', 'height', '700')
 
@@ -24,11 +24,13 @@ class App(App):
         sm.add_widget(app.BirdCard(name="birdcard"))
         sm.add_widget(app.Loading(name='loading'))
         sm.add_widget(app.LoadApp(name='loadapp'))
+        sm.add_widget(app.ModelAudio(name="modelaudio"))
         sm.add_widget(app.BirdChoice(name="birdchoice"))
         sm.add_widget(camera.CameraView(name='cameraview'))
         sm.add_widget(camera.PictureCamera(name="picturecamera"))
         sm.add_widget(explorer.PictureFileChooser(name="picturefilechooser"))
         sm.add_widget(explorer.FileChooser(name="filechooser"))
+        sm.add_widget(explorer.FileChooserAudio(name="filechooseraudio"))
         sm.add_widget(dex.Dex(name="dex"))
         sm.add_widget(dex.BirdCardDex(name="birdcarddex"))
         return sm

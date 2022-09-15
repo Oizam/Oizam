@@ -5,12 +5,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import shutil
+import tensorflow as tf
 from PIL import Image
-
-# On n'affiche pas les warnings de librosa dû au chargement de fichiers mp3
 import warnings
 warnings.filterwarnings("ignore", message="PySoundFile failed. Trying audioread instead.")
 
+def preprocess(image):
+  return tf.keras.applications.mobilenet.preprocess_input(image)
+
+def save_sgram_to_image(sgram, dst_sgram):
+    sgram_im = Image.fromarray(sgram)
+    sgram_im = sgram_im.transpose(Image.Transpose.FLIP_TOP_BOTTOM)
+    sgram_im.save(dst_sgram)
+    
 class AudioUtil():
   @staticmethod
   def load_audio(audio_completepath):
@@ -145,8 +152,3 @@ def wav_to_sgram(src_wav, num_channels=3, duration=10, newsample_rate=22050):
     sgram = np.rint(sgram).astype(np.uint8)
 
     return sgram
-
-def save_sgram_to_image(sgram, dst_sgram):
-    sgram_im = Image.fromarray(sgram)
-    sgram_im = sgram_im.transpose(Image.Transpose.FLIP_TOP_BOTTOM)
-    sgram_im.save(dst_sgram)

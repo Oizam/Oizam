@@ -29,4 +29,25 @@ class FileChooser(Screen):
             self.manager.transition.direction = "left"
             self.manager.current = "picturefilechooser"
         else:
-            pass      
+            pass
+        
+class FileChooserAudio(Screen):
+        
+    def on_enter(self):
+        filechooser = self.ids['filechooser']
+        filechooser.path = os.path.abspath(os.getcwd())
+
+          
+    def save(self, path):
+        regex = "([^\\s]+(\\.(?i)(wav|avi|mp3))$)"
+        p = re.compile(regex)
+        if(re.search(p, path)):
+            try :
+                shutil.copyfile(path, "./sound.mp3")
+            except:
+                pass
+            self.manager.transition.direction = "left"
+            self.manager.current = "modelaudio"
+        else:
+            pass
+        
